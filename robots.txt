@@ -1,0 +1,5 @@
+# Indexing is allowed. The page-level meta robots tag is set to "index, follow".
+User-agent: *
+Allow: /
+
+Sitemap: https://ainativex.ai/sitemap.xml
