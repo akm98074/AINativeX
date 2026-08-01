@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ainativex.ai/sitemap.xml
+Sitemap: https://akm98074.github.io/AINativeX/sitemap.xml

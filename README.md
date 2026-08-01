@@ -1,5 +1,9 @@
 # AINativeX — Launch Website
 
+**Live at:** <https://akm98074.github.io/AINativeX/> — published from `main` by
+`.github/workflows/deploy-pages.yml`. Moving to the `ainativex.ai` custom domain
+later is a small, documented change: see [DEPLOY.md](DEPLOY.md#switching-to-the-custom-domain).
+
 A fast, single-page marketing site for **AINativeX**, the enterprise door of the
 practice. It reuses the AIUdaan design system (palette, type, components) with
 copy written for the *AI Transformation* deck's audience: enterprises, startups,
@@ -38,7 +42,6 @@ AINativeX/
 ├── 404.html                    # Friendly not-found page
 ├── .htaccess                   # Apache config for cPanel hosting
 │                               #   (HTTPS + www redirect, caching, headers)
-├── CNAME                       # ainativex.ai — used by GitHub Pages
 ├── robots.txt                  # Search-engine crawl directives
 ├── sitemap.xml                 # Single-URL sitemap
 ├── site.webmanifest            # PWA / installable metadata
@@ -62,7 +65,14 @@ AINativeX/
         └── abhishek-mishra.*   # Portrait used in the hero credibility card
 ```
 
-Asset references are relative, so the site also works from a subdirectory.
+Asset references are relative, which is what lets the site work from the
+`/AINativeX/` subpath of `akm98074.github.io`. The one exception is `404.html`:
+GitHub Pages serves it for missing paths at any depth, so its references are
+absolute (`/AINativeX/...`) and would need updating alongside the site's base URL.
+
+> `robots.txt` only takes effect at a host root, so `akm98074.github.io/robots.txt`
+> — not this file — governs crawling while the site lives on the github.io
+> subpath. It becomes authoritative once the site moves to its own domain.
 
 ---
 

@@ -16,19 +16,43 @@ order most people should pick them.
 
 ## Option A — GitHub Pages
 
-1. Push to `main`. The workflow (`Deploy site to GitHub Pages`) runs
-   automatically and enables Pages on first run (`enablement: true`).
-2. Repo **Settings → Pages** should show *Source: GitHub Actions* and the live
-   URL once the first run finishes.
-3. **Custom domain.** `CNAME` already contains `ainativex.ai`. At your registrar,
-   point DNS at GitHub:
+The site is configured for the project-page URL
+**<https://akm98074.github.io/AINativeX/>**.
+
+### One-time setup (must be done in the browser)
+
+1. Repo **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+
+   This step can't be automated from the workflow: the `GITHUB_TOKEN` isn't
+   allowed to create a Pages site, so `actions/configure-pages` with
+   `enablement: true` fails the run with *"Resource not accessible by
+   integration"*. That input has been removed for exactly this reason.
+
+2. **Actions → Deploy site to GitHub Pages → Run workflow** (or push any commit
+   to `main`). The run publishes the repo root — there's no build step.
+3. Settings → Pages then shows the live URL. First publish usually takes a
+   minute or two.
+
+Updates from then on: edit, commit, push to `main` — live in about a minute.
+
+### Switching to the custom domain
+
+The site currently hardcodes the github.io base URL in a few places. To move it
+to `ainativex.ai`:
+
+1. Add a `CNAME` file at the repo root containing `ainativex.ai`, and set the
+   same value in **Settings → Pages → Custom domain**.
+2. Point DNS at GitHub:
    - `A` records for the apex `@` → `185.199.108.153`, `185.199.109.153`,
      `185.199.110.153`, `185.199.111.153`
-   - `CNAME` for `www` → `<your-github-username>.github.io`
-4. In **Settings → Pages**, tick **Enforce HTTPS** once the certificate is issued
-   (usually minutes, occasionally up to an hour).
-
-Updates from then on: edit, commit, push — live in about a minute.
+   - `CNAME` for `www` → `akm98074.github.io`
+3. Swap the base URL in:
+   - `index.html` — `canonical`, `og:url`, `og:image`, `twitter:image`, and the
+     three JSON-LD URLs
+   - `sitemap.xml` — `<loc>`, and `robots.txt` — `Sitemap:`
+   - `404.html` — the four absolute `/AINativeX/...` paths become `/...`
+4. Tick **Enforce HTTPS** once the certificate is issued (minutes, occasionally
+   up to an hour).
 
 ---
 
@@ -46,9 +70,6 @@ Updates from then on: edit, commit, push — live in about a minute.
 > **Netlify** is equivalent: drag-and-drop the folder at app.netlify.com, or
 > connect the repo with a blank build command and publish directory `.`, then
 > **Domain settings → Add custom domain**.
-
-Delete `CNAME` if you host somewhere other than GitHub Pages — it's a GitHub
-Pages convention and other hosts ignore it, but it's noise.
 
 ---
 
@@ -96,9 +117,11 @@ drop the files into `public_html`.)*
 - [ ] Replace the `[Company A/B/C]` advisory placeholders, and only name a
       company once it has cleared public mention.
 - [ ] Confirm `akmishra@ainativex.ai` is the address you want on a public page.
-- [ ] Check the HTTPS padlock and the `www` → apex redirect.
-- [ ] Paste `https://ainativex.ai` into LinkedIn or Slack and confirm the
-      `og-image.png` preview renders.
-- [ ] Submit `https://ainativex.ai/sitemap.xml` in Google Search Console.
+- [ ] Check the HTTPS padlock (and, on a custom domain, the `www` → apex redirect).
+- [ ] Paste the live URL into LinkedIn or Slack and confirm the `og-image.png`
+      preview renders.
+- [ ] Submit the sitemap in Google Search Console — note that a github.io
+      subpath can only be verified as part of the whole `akm98074.github.io`
+      property, so this is best left until the custom domain is live.
 - [ ] Load the page on a phone: the nav collapses, the CTA label shortens, and
       the engagement cards stack.

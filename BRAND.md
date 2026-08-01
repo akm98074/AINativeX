@@ -80,6 +80,6 @@ is built from doesn't use them, and neither should the site.
 
 - Email → `akmishra@ainativex.ai`
 - LinkedIn → `linkedin.com/in/abhishekkmishra`
-- Domain → `ainativex.ai` (see `CNAME`)
+- Live URL → `akm98074.github.io/AINativeX/`; `ainativex.ai` once DNS moves
 - Favicon → 32px (`assets/img/favicon-32.png`), plus `favicon.ico` at 16–64px
 - OG image → 1200×630 (`assets/img/og-image.png`)

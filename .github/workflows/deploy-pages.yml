@@ -30,11 +30,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Pages must already be enabled with Source = GitHub Actions
+      # (Settings → Pages). Auto-enablement via `enablement: true` is not used:
+      # the workflow token can't create a Pages site, so it fails the run.
       - name: Configure Pages
         uses: actions/configure-pages@v5
-        with:
-          # Auto-enable Pages (Actions source) so no manual Settings step is needed.
-          enablement: true
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
