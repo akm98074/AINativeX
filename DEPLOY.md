@@ -4,9 +4,9 @@ The site is static — `index.html` at the root, everything else beside it. Ther
 is no build step, so any host that serves files will do. Three paths, in the
 order most people should pick them.
 
-- **Option A — GitHub Pages (already live).** Pages serves the repo root
-  straight from `main` on every push. No workflow, no build step.
-  **Recommended if the repo lives on GitHub.**
+- **Option A — GitHub Pages (already wired).** `.github/workflows/deploy-pages.yml`
+  publishes the repo root on every push to `main` — the same workflow AIUdaan
+  uses. **Recommended if the repo lives on GitHub.**
 - **Option B — Cloudflare Pages / Netlify.** Same idea, different host: connect
   the repo, no build command, output directory `/`.
 - **Option C — cPanel / GoDaddy-style hosting.** Upload the files into
@@ -21,29 +21,35 @@ The site is configured for the project-page URL
 
 ### How it publishes
 
-**Settings → Pages → Build and deployment** is set to **Source: Deploy from a
-branch**, branch `main`, folder `/ (root)`. That is the whole configuration.
-GitHub's own *pages build and deployment* job runs on every push to `main` and
-serves the repo root as-is — this repo has no workflow file and needs none.
+`.github/workflows/deploy-pages.yml` runs on every push to `main`, uploads the
+repo root as a Pages artifact, and deploys it. There is no build step.
 
-Updates: edit, commit, push to `main`. The job usually publishes within a minute
-or two, but it can sit `queued` noticeably longer when GitHub's shared runners
-are busy — that is a wait, not a failure. Watch it under **Actions → pages build
-and deployment**, and hard-refresh the page afterwards, since Pages caches
-aggressively.
+`actions/configure-pages@v5` runs with **`enablement: true`**, which sets the
+Pages source to **GitHub Actions** by itself — so there is no manual
+Settings step, and no browser click needed on a fresh clone or a new repo. This
+is the same workflow AIUdaan publishes from, unchanged.
 
-> **On the deleted workflows.** Earlier revisions shipped
-> `.github/workflows/deploy-pages.yml` and `static.yml`, which deployed via
-> **Source: GitHub Actions**. Both have been removed: they were disabled, they
-> failed on every attempt, and the branch source above is what actually
-> publishes the site. The two approaches are alternatives, not complements —
-> if you ever switch the source back to GitHub Actions, you must restore a
-> workflow at the same time, or nothing will deploy.
+Updates: edit, commit, push to `main`. Live in about a minute. Watch it under
+**Actions → Deploy site to GitHub Pages**, and hard-refresh afterwards, since
+Pages caches aggressively.
+
+> **Do not add a second deploy workflow.** This repo previously carried both
+> `deploy-pages.yml` and a `static.yml` that did the same job. Both declared
+> `concurrency: group: pages` and both fired on the same push, so they fought
+> over the one Pages deployment and failed. `static.yml` has been deleted; keep
+> it that way.
 >
-> Note for that path: the `GITHUB_TOKEN` isn't allowed to create a Pages site,
-> so `actions/configure-pages` with `enablement: true` fails the run with
-> *"Resource not accessible by integration"* — the source has to be switched in
-> the browser first.
+> **Do not drop `enablement: true`.** An earlier revision removed it on the
+> theory that the `GITHUB_TOKEN` cannot create a Pages site. That is wrong for
+> this repo — AIUdaan deploys with that exact line. Without it, the workflow
+> depends on the Pages source having been switched to GitHub Actions by hand,
+> and if it hasn't been, the `deploy` job fails within a second of starting,
+> before any step runs.
+>
+> **Don't mix in the branch source.** With Pages set to *Deploy from a branch*
+> instead, GitHub's built-in *pages build and deployment* job handles the
+> publish and this workflow is redundant. The two are alternatives, not
+> complements — pick the workflow, which is what this repo is set up for.
 
 ### Switching to the custom domain
 
@@ -114,7 +120,7 @@ drop the files into `public_html`.)*
 | | A — GitHub Pages | B — Cloudflare/Netlify | C — cPanel |
 |---|---|---|---|
 | Cost | Free | Free | Existing hosting fee |
-| Setup | Already live | ~10 min | ~20 min |
+| Setup | Already wired | ~10 min | ~20 min |
 | HTTPS | Automatic | Automatic | AutoSSL |
 | Updates | `git push` | `git push` | Re-upload files |
 | Uses `.htaccess` | No | No | **Yes** |
