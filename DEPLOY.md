@@ -4,9 +4,9 @@ The site is static — `index.html` at the root, everything else beside it. Ther
 is no build step, so any host that serves files will do. Three paths, in the
 order most people should pick them.
 
-- **Option A — GitHub Pages (already wired).** `.github/workflows/deploy-pages.yml`
-  publishes the repo root on every push to `main` — the same workflow AIUdaan
-  uses. **Recommended if the repo lives on GitHub.**
+- **Option A — GitHub Pages (already live).** Pages serves the repo root
+  straight from `main` on every push. No workflow, no build step.
+  **Recommended if the repo lives on GitHub.**
 - **Option B — Cloudflare Pages / Netlify.** Same idea, different host: connect
   the repo, no build command, output directory `/`.
 - **Option C — cPanel / GoDaddy-style hosting.** Upload the files into
@@ -21,35 +21,50 @@ The site is configured for the project-page URL
 
 ### How it publishes
 
-`.github/workflows/deploy-pages.yml` runs on every push to `main`, uploads the
-repo root as a Pages artifact, and deploys it. There is no build step.
+**Settings → Pages → Build and deployment** is set to **Source: Deploy from a
+branch**, branch `main`, folder `/ (root)`. That is the whole configuration.
+GitHub's built-in *pages build and deployment* job runs on every push to `main`
+and serves the repo root as-is. This repo has no workflow file and needs none.
 
-`actions/configure-pages@v5` runs with **`enablement: true`**, which sets the
-Pages source to **GitHub Actions** by itself — so there is no manual
-Settings step, and no browser click needed on a fresh clone or a new repo. This
-is the same workflow AIUdaan publishes from, unchanged.
-
-Updates: edit, commit, push to `main`. Live in about a minute. Watch it under
-**Actions → Deploy site to GitHub Pages**, and hard-refresh afterwards, since
+Updates: edit, commit, push to `main`. Live in a minute or so. Watch it under
+**Actions → pages build and deployment**, and hard-refresh afterwards, since
 Pages caches aggressively.
 
-> **Do not add a second deploy workflow.** This repo previously carried both
-> `deploy-pages.yml` and a `static.yml` that did the same job. Both declared
-> `concurrency: group: pages` and both fired on the same push, so they fought
-> over the one Pages deployment and failed. `static.yml` has been deleted; keep
-> it that way.
->
-> **Do not drop `enablement: true`.** An earlier revision removed it on the
-> theory that the `GITHUB_TOKEN` cannot create a Pages site. That is wrong for
-> this repo — AIUdaan deploys with that exact line. Without it, the workflow
-> depends on the Pages source having been switched to GitHub Actions by hand,
-> and if it hasn't been, the `deploy` job fails within a second of starting,
-> before any step runs.
->
-> **Don't mix in the branch source.** With Pages set to *Deploy from a branch*
-> instead, GitHub's built-in *pages build and deployment* job handles the
-> publish and this workflow is redundant. The two are alternatives, not
-> complements — pick the workflow, which is what this repo is set up for.
+**If a build sits in `queued` for a long time**, that is GitHub's shared runner
+backlog, not a fault in the repo — the job shows `queued` with no runner
+assigned and simply waits. It usually clears on its own. If it wedges for
+longer than you want to wait, cancel the run from the Actions tab and push
+again (an empty commit is enough: `git commit --allow-empty -m "Redeploy"`).
+Cancelling is safe; the live site keeps serving the last successful build.
+
+Note that pushes made by a GitHub App token — an automation or agent pushing on
+your behalf — do not trigger `on: push` workflows. GitHub's Pages builder is not
+a user workflow, so it still runs for those pushes; this is one more reason the
+branch source is the sturdier choice here.
+
+### Why not a deploy workflow?
+
+Because it never worked in this repo, while the branch source always has.
+
+An earlier revision carried two workflows, `deploy-pages.yml` and `static.yml`,
+both firing on push to `main` and both declaring `concurrency: group: pages`, so
+they contended for the single Pages deployment. Every run either failed or was
+cancelled — five failures, zero successes. Both files are deleted. Do not
+reintroduce a second one.
+
+If you ever do want the Actions path (AIUdaan uses it, successfully), two things
+matter:
+
+- `actions/configure-pages@v5` must run **`with: enablement: true`**. That input
+  is what switches the Pages source to *GitHub Actions* on its own. A previous
+  revision here removed it, believing the `GITHUB_TOKEN` cannot create a Pages
+  site; AIUdaan deploys with that exact line, so it is not true for this
+  account. Without it, the `deploy` job fails about a second in — no runner ever
+  assigned — because the `github-pages` environment isn't configured.
+- The branch source and a deploy workflow are **alternatives, not complements**.
+  Adding the workflow switches the source away from the branch build; removing
+  it without switching the source back leaves nothing publishing. Change both
+  together or neither.
 
 ### Switching to the custom domain
 
@@ -120,7 +135,7 @@ drop the files into `public_html`.)*
 | | A — GitHub Pages | B — Cloudflare/Netlify | C — cPanel |
 |---|---|---|---|
 | Cost | Free | Free | Existing hosting fee |
-| Setup | Already wired | ~10 min | ~20 min |
+| Setup | Already live | ~10 min | ~20 min |
 | HTTPS | Automatic | Automatic | AutoSSL |
 | Updates | `git push` | `git push` | Re-upload files |
 | Uses `.htaccess` | No | No | **Yes** |

@@ -1,7 +1,8 @@
 # AINativeX — Launch Website
 
-**Live at:** <https://akm98074.github.io/AINativeX/> — published from `main` by
-`.github/workflows/deploy-pages.yml`. Moving to the `ainativex.ai` custom domain
+**Live at:** <https://akm98074.github.io/AINativeX/> — GitHub Pages serves the
+repo root straight from `main`, no workflow and no build step. Moving to the
+`ainativex.ai` custom domain
 later is a small, documented change: see [DEPLOY.md](DEPLOY.md#switching-to-the-custom-domain).
 
 A fast, single-page marketing site for **AINativeX**, the enterprise door of the
