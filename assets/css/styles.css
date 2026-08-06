@@ -312,28 +312,57 @@ p  { margin: 0 0 1rem; }
 }
 .quote-card figcaption { font-size: .85rem; color: var(--amber); font-weight: 700; }
 
-/* ---------- Testimonials ---------- */
-.tcards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; margin-top: 1.6rem; }
+/* ---------- Testimonials ----------
+   Three cards, full quote on the card — no "read more" gate. Cards stretch to
+   equal height and the attribution row is pushed to the bottom so the names
+   line up across the row. */
+.tcards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; margin-top: 1.6rem; align-items: start; }
 .tcard {
-  background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
-  padding: 1.5rem 1.4rem; box-shadow: var(--shadow-sm); margin: 0;
+  position: relative; display: flex; flex-direction: column;
+  background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg);
+  padding: 1.6rem 1.4rem 1.3rem; box-shadow: var(--shadow-sm); margin: 0;
+  border-top: 3px solid var(--amber);
 }
-.tcard .tcard-title { margin: 0 0 .35rem; font-size: 1.15rem; color: var(--navy); }
-.tcard .tcard-arc {
-  font-size: .88rem; font-weight: 700; color: var(--deep-amber);
-  letter-spacing: .02em; margin-bottom: .9rem;
+.tcard:nth-child(2) { border-top-color: var(--coral); }
+.tcard:nth-child(3) { border-top-color: var(--navy); }
+/* Decorative open-quote glyph; the real quotation marks live in the text. */
+.tcard-mark {
+  font-family: var(--font-display); font-size: 3.4rem; line-height: .8;
+  color: var(--amber); opacity: .5; display: block; margin-bottom: .1rem;
 }
-.tcard .quote { font-size: 1rem; color: #2c2c44; margin: 0; font-style: italic; }
+.tcard .tcard-title {
+  margin: 0 0 .7rem; font-size: 1.1rem; line-height: 1.3; color: var(--navy);
+}
+.tcard .quote { margin: 0; font-size: .95rem; line-height: 1.62; color: #34344a; }
+.tcard .quote p { margin: 0 0 .8rem; }
+.tcard .quote p:last-child { margin-bottom: 0; }
 
-/* Full story is collapsed so the page stays scannable. */
-.tmore { margin-top: .9rem; }
-.tmore summary {
-  cursor: pointer; font-weight: 700; font-size: .9rem; color: var(--coral);
-  list-style-position: inside;
+/* Grid, not flex: the name sits beside the monogram and the LinkedIn pill
+   always drops to its own row, so long role lines can't shuffle the layout. */
+.tcard-attr {
+  display: grid; grid-template-columns: auto minmax(0, 1fr);
+  align-items: center; column-gap: .7rem;
+  margin-top: auto; padding-top: 1.1rem;
+  border-top: 1px solid var(--line);
 }
-.tmore summary:hover { text-decoration: underline; }
-.tmore p { margin: .9rem 0 0; font-size: .95rem; color: #34344a; }
-.tmore p:last-child { margin-bottom: 0; }
+.tcard-avatar {
+  flex: 0 0 auto; width: 40px; height: 40px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--navy); color: var(--cream);
+  font-family: var(--font-display); font-weight: 600; font-size: .95rem;
+  letter-spacing: .02em;
+}
+.tcard-who { display: flex; flex-direction: column; min-width: 0; }
+.tcard-name { font-weight: 700; color: var(--navy); font-size: .95rem; line-height: 1.25; }
+.tcard-role { font-size: .8rem; color: var(--deep-amber); font-weight: 600; line-height: 1.3; }
+.tcard-attr .linkedin-pill { grid-column: 2; justify-self: start; margin-top: .6rem; }
+
+/* Straight from three columns to one: a two-column reflow strands the third
+   card in a half-empty row. */
+@media (max-width: 860px) {
+  .tcards { grid-template-columns: 1fr; gap: 1rem; }
+  .tcard { max-width: 640px; }
+}
 
 /* ---------- FAQ ---------- */
 .faq-item {
@@ -404,7 +433,7 @@ p  { margin: 0 0 1rem; }
 }
 @media (max-width: 560px) {
   body { font-size: 16px; }
-  .tcards, .footer-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
   .brand img { height: 32px; }
   /* Three stat cards side by side get too cramped below this width. */
   .stats { grid-template-columns: 1fr; }
