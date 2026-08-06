@@ -4,9 +4,9 @@ The site is static — `index.html` at the root, everything else beside it. Ther
 is no build step, so any host that serves files will do. Three paths, in the
 order most people should pick them.
 
-- **Option A — GitHub Pages (already wired).** `.github/workflows/deploy-pages.yml`
-  publishes the repo root on every push to `main`. **Recommended if the repo
-  lives on GitHub.**
+- **Option A — GitHub Pages (already live).** Pages serves the repo root
+  straight from `main` on every push. No workflow, no build step.
+  **Recommended if the repo lives on GitHub.**
 - **Option B — Cloudflare Pages / Netlify.** Same idea, different host: connect
   the repo, no build command, output directory `/`.
 - **Option C — cPanel / GoDaddy-style hosting.** Upload the files into
@@ -19,21 +19,31 @@ order most people should pick them.
 The site is configured for the project-page URL
 **<https://akm98074.github.io/AINativeX/>**.
 
-### One-time setup (must be done in the browser)
+### How it publishes
 
-1. Repo **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+**Settings → Pages → Build and deployment** is set to **Source: Deploy from a
+branch**, branch `main`, folder `/ (root)`. That is the whole configuration.
+GitHub's own *pages build and deployment* job runs on every push to `main` and
+serves the repo root as-is — this repo has no workflow file and needs none.
 
-   This step can't be automated from the workflow: the `GITHUB_TOKEN` isn't
-   allowed to create a Pages site, so `actions/configure-pages` with
-   `enablement: true` fails the run with *"Resource not accessible by
-   integration"*. That input has been removed for exactly this reason.
+Updates: edit, commit, push to `main`. The job usually publishes within a minute
+or two, but it can sit `queued` noticeably longer when GitHub's shared runners
+are busy — that is a wait, not a failure. Watch it under **Actions → pages build
+and deployment**, and hard-refresh the page afterwards, since Pages caches
+aggressively.
 
-2. **Actions → Deploy site to GitHub Pages → Run workflow** (or push any commit
-   to `main`). The run publishes the repo root — there's no build step.
-3. Settings → Pages then shows the live URL. First publish usually takes a
-   minute or two.
-
-Updates from then on: edit, commit, push to `main` — live in about a minute.
+> **On the deleted workflows.** Earlier revisions shipped
+> `.github/workflows/deploy-pages.yml` and `static.yml`, which deployed via
+> **Source: GitHub Actions**. Both have been removed: they were disabled, they
+> failed on every attempt, and the branch source above is what actually
+> publishes the site. The two approaches are alternatives, not complements —
+> if you ever switch the source back to GitHub Actions, you must restore a
+> workflow at the same time, or nothing will deploy.
+>
+> Note for that path: the `GITHUB_TOKEN` isn't allowed to create a Pages site,
+> so `actions/configure-pages` with `enablement: true` fails the run with
+> *"Resource not accessible by integration"* — the source has to be switched in
+> the browser first.
 
 ### Switching to the custom domain
 
@@ -104,7 +114,7 @@ drop the files into `public_html`.)*
 | | A — GitHub Pages | B — Cloudflare/Netlify | C — cPanel |
 |---|---|---|---|
 | Cost | Free | Free | Existing hosting fee |
-| Setup | Already wired | ~10 min | ~20 min |
+| Setup | Already live | ~10 min | ~20 min |
 | HTTPS | Automatic | Automatic | AutoSSL |
 | Updates | `git push` | `git push` | Re-upload files |
 | Uses `.htaccess` | No | No | **Yes** |
@@ -113,7 +123,7 @@ drop the files into `public_html`.)*
 
 ## Post-launch checklist
 
-- [ ] Replace the placeholder testimonials with real, attributed quotes.
+- [x] Replace the placeholder testimonials with real, attributed quotes.
 - [ ] Replace the `[Company A/B/C]` advisory placeholders, and only name a
       company once it has cleared public mention.
 - [ ] Confirm `akmishra@ainativex.ai` is the address you want on a public page.
