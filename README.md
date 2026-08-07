@@ -55,7 +55,7 @@ AINativeX/
     └── img/
         ├── logo-primary.png    # Wordmark for light backgrounds (header)
         ├── logo-dark.png       # Wordmark for dark backgrounds (footer)
-        ├── icon.png            # Arc mark, transparent background
+        ├── icon.png            # Phoenix mark, transparent background
         ├── icon-192.png        # PWA icon / 404 mark
         ├── icon-512.png        # PWA icon
         ├── apple-touch-icon.png# 180×180 iOS home-screen icon

@@ -9,18 +9,25 @@ Tokens are implemented as CSS variables at the top of `assets/css/styles.css`.
 
 ## Logo
 
-- **Primary wordmark** (`assets/img/logo-primary.png`) — the stacked-arc mark
-  plus `AINativeX`, with `AI` in coral and `NativeX` in navy. Use on white /
-  light backgrounds.
-- **Dark version** (`assets/img/logo-dark.png`) — for dark backgrounds (footer).
+- **Primary wordmark** (`assets/img/logo-primary.png`) — the phoenix mark beside
+  `AINATIVEX` and `Enable the Last Mile`, laid out horizontally. Use on white /
+  light backgrounds. Sources: `AINativeX-Primary-Logo.png`.
+- **Dark version** (`assets/img/logo-dark.png`) — the stacked lockup with the
+  cream wordmark, for dark backgrounds (footer). Source:
+  `AINativeX-Footer-DarkBlue.png`.
 - **Icon only** (`assets/img/icon-512.png`, `icon-192.png`) — the navy tile with
-  the arc mark, for favicons, avatars, and app icons.
+  the phoenix mark, for favicons, avatars, and app icons.
 - **Transparent mark** (`assets/img/icon.png`) — mark without the navy tile, for
   decorative use on light surfaces.
 
-**The mark.** Three arcs rising from a single coral point: layers stacked over
-one foundation — hardware and infrastructure, data, models, applications. It
-echoes the concentric-arc motif on the title slide of the AI Transformation deck.
+**The mark.** A phoenix rising across a sun arc, its body resolving into circuit
+traces: the last mile, where the technology meets the work. Navy and deep amber
+carry the form, coral picks out the `X`.
+
+**Adapting the lockup.** The supplied artwork is stacked, and its wordmark is
+only about 15% of the lockup height — below roughly 84px the name stops being
+readable. Anywhere vertically constrained (the sticky header) uses the
+horizontal arrangement; anywhere with room (the footer) uses the stacked one.
 
 **Usage rules (inherited from the guide):**
 - Maintain clear space equal to the `AI` text height on all sides.
