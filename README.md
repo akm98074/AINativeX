@@ -96,7 +96,6 @@ the scroll-spy nav highlight, and the footer year.
 |-------|--------------|
 | `index.html` → Testimonials (`.tcard`) | **Placeholders.** `CEO A · Company A`, `CEO B · Company B`, `Partner C · Fund C`, `CTO D · Company D` are stand-ins — swap in real, attributed quotes with permission. |
 | `index.html` → `mailto:akmishra@ainativex.ai` | Confirm this is the address you want public, or swap in a scheduling link. |
-| `index.html` → "Where AI has to be trusted" | **Placeholders.** `[Company A]`, `[Company B]`, `[Company C]` stand in for the advisory relationships — name them only once each company has cleared it. |
 | `sitemap.xml` → `lastmod` | Bump on significant content changes. |
 
 The bar for "done": an enterprise buyer lands, understands the 70-20-10 thesis

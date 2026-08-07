@@ -145,7 +145,7 @@ drop the files into `public_html`.)*
 ## Post-launch checklist
 
 - [x] Replace the placeholder testimonials with real, attributed quotes.
-- [ ] Replace the `[Company A/B/C]` advisory placeholders, and only name a
+- [x] Replace the `[Company A/B/C]` advisory placeholders, and only name a
       company once it has cleared public mention.
 - [ ] Confirm `akmishra@ainativex.ai` is the address you want on a public page.
 - [ ] Check the HTTPS padlock (and, on a custom domain, the `www` → apex redirect).
