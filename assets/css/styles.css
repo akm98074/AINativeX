@@ -121,11 +121,13 @@ p  { margin: 0 0 1rem; }
 }
 .nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 12px; }
 .brand { display: inline-flex; align-items: center; gap: .6rem; }
-.brand img { height: 38px; width: auto; }
+.brand img { height: 46px; width: auto; }
 .nav-links { display: flex; align-items: center; gap: 1.35rem; }
 .nav-links a {
   color: var(--navy); font-weight: 600; font-size: .96rem;
   padding-bottom: 2px; border-bottom: 2px solid transparent;
+  /* The bar runs close to full width, so a label must never break mid-phrase. */
+  white-space: nowrap;
 }
 .nav-links a:hover { color: var(--coral); text-decoration: none; }
 .nav-links a.is-current { color: var(--coral); border-bottom-color: var(--amber); }
@@ -374,7 +376,9 @@ p  { margin: 0 0 1rem; }
 .site-footer { background: var(--dark-navy); color: #c9c9da; padding: 56px 0 30px; }
 .site-footer a { color: var(--amber); }
 .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 2rem; }
-.site-footer img.flogo { height: 40px; margin-bottom: 1rem; }
+/* The footer mark is the full stacked lockup, so it needs more height than a
+   horizontal one to keep the wordmark and tagline legible. */
+.site-footer img.flogo { height: 84px; margin-bottom: 1rem; }
 .brand-note { font-size: .95rem; color: #b6b6cb; max-width: 44ch; }
 .footer-col h4 { color: #fff; font-size: .85rem; letter-spacing: .1em; text-transform: uppercase; margin: 0 0 .9rem; }
 .footer-col a { display: block; color: #c9c9da; margin-bottom: .5rem; font-weight: 500; }
@@ -413,7 +417,7 @@ p  { margin: 0 0 1rem; }
 @media (max-width: 560px) {
   body { font-size: 16px; }
   .tcards, .footer-grid { grid-template-columns: 1fr; }
-  .brand img { height: 32px; }
+  .brand img { height: 40px; }
   /* Three stat cards side by side get too cramped below this width. */
   .stats { grid-template-columns: 1fr; }
   .stats li { display: flex; align-items: baseline; gap: .6rem; padding: .8rem .95rem; }
