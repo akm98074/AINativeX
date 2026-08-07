@@ -20,14 +20,14 @@ instantly and can be hosted anywhere. See **[DEPLOY.md](DEPLOY.md)**.
 | # | Section | Job |
 |---|---------|-----|
 | 1 | **Hero** | Positioning — "The hard part of AI-native isn't the model", plus the operator credibility card |
-| 2 | **The premise** | The 70-20-10 split: people and process, data and evaluation, the model (BCG-attributed) |
+| 2 | **The premise** | The 70-20-10 split: people and process, data and evaluation, the model — argued from first-hand programs, and reused as the diligence rubric |
 | 3 | **Where it breaks** | The two gaps every program stalls in — the first mile and the last mile |
 | 4 | **Expertise** | Enterprise infra and applied AI at every layer: application, RAG, models, data and eval, big data, infra and hardware |
-| 5 | **Engagements** | The three doors — VC (technical due diligence, talent mapping), startups (product, technology, technical scale), enterprises (AI-native transformation, run 70-20-10) |
-| 6 | **Why AINativeX** | Built at scale · embedded in the change · where AI has to be trusted · transfer, not dependency |
+| 5 | **Engagements** | Three depths, ascending by duration — due diligence (2–3 weeks), AI-native transformation (3–6 months), product and technical scale (6+ months) |
+| 6 | **Why AINativeX** | Changed how 30,000 people work · shipped agents people adopted · where AI has to be trusted · transfer, not dependency |
 | 7 | **Testimonials** | Social proof — **placeholders today** (see below) |
-| 8 | **FAQ** | Fit, scope, build-vs-advise, regulated environments, how to start |
-| 9 | **Final CTA** | Start scoped: a working session, or a short embed-and-map phase |
+| 8 | **FAQ** | Fit, scope, build-vs-advise, timing, enterprise track record, regulated environments, how to start |
+| 9 | **Final CTA** | Start scoped: a working session, then a two-to-three-week first phase |
 
 Copy is drawn from the *AI Transformation* deck (premise, the two gaps, and the
 operator credentials), with the individual-facing slogans of AIUdaan replaced by

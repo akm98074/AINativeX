@@ -66,8 +66,8 @@ enterprise AI programs:
 
 **The 70-20-10 line** — *70% people and process, 20% data and evaluation, 10%
 the model* — is the brand's single most repeatable claim, and the frame every
-enterprise engagement is sold and scoped against. Keep the BCG attribution
-whenever the split is quoted.
+enterprise engagement is sold and scoped against. Argue it from first-hand
+programs, not from a third-party citation.
 
 ## Voice
 
