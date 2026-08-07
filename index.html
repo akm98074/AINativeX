@@ -64,8 +64,8 @@
   <a class="skip-link" href="#premise">Skip to content</a>
 
   <!-- ===================== HEADER =====================
-       The primary CTA lives outside .nav-links so it stays visible at every
-       breakpoint — including when the mobile menu is collapsed. -->
+       The page carries a single ask, in the closing section. The bar points at
+       it as a plain nav item rather than a button. -->
   <header class="site-header">
     <div class="container nav">
       <a class="brand" href="#top" aria-label="AINativeX home">
@@ -78,18 +78,12 @@
         <a href="#engagements">Engagements</a>
         <a href="#testimonials">Testimonials</a>
         <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
       </nav>
 
-      <div class="nav-actions">
-        <a class="btn btn--primary btn--sm nav-cta" href="mailto:akmishra@ainativex.ai?subject=AINativeX%20—%20working%20session">
-          <span class="cta-long">Request a working session</span>
-          <span class="cta-short">Get in touch</span>
-          <span class="arw">→</span>
-        </a>
-        <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
@@ -108,10 +102,9 @@
             which technology you adopt.
           </p>
           <div class="hero-cta">
-            <a class="btn btn--primary btn--lg" href="mailto:akmishra@ainativex.ai?subject=AINativeX%20—%20working%20session">Request a working session <span class="arw">→</span></a>
-            <a class="btn btn--ghost btn--lg" href="#engagements">See the three engagements</a>
+            <a class="btn btn--primary btn--lg" href="#engagements">See the three engagements</a>
           </div>
-          <p class="hero-fine">A working session with you and a couple of your leads. Not a sales call.</p>
+          <p class="hero-fine">A working session with you and a couple of your leads, on a workflow you already care about.</p>
         </div>
 
         <div class="hero-side">
@@ -405,10 +398,6 @@
           before committing to the arc, and ends when your team can run it
           without me.
         </p>
-
-        <div class="hero-cta">
-          <a class="btn btn--primary" href="mailto:akmishra@ainativex.ai?subject=AINativeX%20—%20working%20session">Request a working session <span class="arw">→</span></a>
-        </div>
       </div>
     </section>
 
@@ -651,15 +640,11 @@
         <details class="faq-item">
           <summary>How do we start?</summary>
           <p>
-            <a href="mailto:akmishra@ainativex.ai?subject=AINativeX%20—%20working%20session">Request a working session</a>
+            <a href="#contact">Request a working session</a>
             with you and a couple of your leads. If there's a fit, we scope a small
             first phase so you see how the work goes before committing to more.
           </p>
         </details>
-
-        <div class="hero-cta">
-          <a class="btn btn--primary" href="mailto:akmishra@ainativex.ai?subject=AINativeX%20—%20working%20session">Request a working session <span class="arw">→</span></a>
-        </div>
       </div>
     </section>
 
@@ -677,6 +662,10 @@
         <div class="hero-cta">
           <a class="btn btn--amber btn--lg" href="mailto:akmishra@ainativex.ai?subject=AINativeX%20—%20working%20session">Request a working session <span class="arw">→</span></a>
         </div>
+        <!-- Plenty of corporate machines have no mail handler, and the button
+             above silently does nothing there. The address stays readable and
+             selectable so those visitors can still copy it. -->
+        <p class="cta-fallback">Or email <a href="mailto:akmishra@ainativex.ai?subject=AINativeX%20—%20working%20session">akmishra@ainativex.ai</a></p>
       </div>
     </section>
 

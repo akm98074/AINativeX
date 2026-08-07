@@ -132,10 +132,6 @@ p  { margin: 0 0 1rem; }
 .nav-links a:hover { color: var(--coral); text-decoration: none; }
 .nav-links a.is-current { color: var(--coral); border-bottom-color: var(--amber); }
 
-/* The CTA sits outside .nav-links so it is never hidden by the mobile menu. */
-.nav-actions { display: flex; align-items: center; gap: .5rem; }
-.nav-cta { flex: 0 0 auto; white-space: nowrap; }
-.nav-cta .cta-short { display: none; }
 .nav-toggle { display: none; background: none; border: 0; cursor: pointer; padding: 8px; }
 .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--navy); margin: 5px 0; transition: .2s; }
 
@@ -371,6 +367,11 @@ p  { margin: 0 0 1rem; }
 .cta-band p { color: #cfcfe6; max-width: 52ch; margin-inline: auto; }
 .cta-band p a { color: var(--amber); }   /* coral fails contrast on the dark band */
 .cta-band .hero-cta { justify-content: center; margin-top: 1.6rem; }
+/* Mailto fallback under the button — smaller and quieter than the CTA so it
+   reads as a way to copy the address, not as a second ask. */
+.cta-band .cta-fallback { margin: .9rem 0 0; font-size: .92rem; color: #a3a3bd; }
+.cta-band .cta-fallback a { color: #d8d8ea; text-decoration: underline; }
+.cta-band .cta-fallback a:hover { color: #fff; }
 
 /* ---------- Footer ---------- */
 .site-footer { background: var(--dark-navy); color: #c9c9da; padding: 56px 0 30px; }
@@ -423,10 +424,6 @@ p  { margin: 0 0 1rem; }
   .stats li { display: flex; align-items: baseline; gap: .6rem; padding: .8rem .95rem; }
   /* Labels like "70-20-10" must not break across lines in the side column. */
   .stat-num { flex: 0 0 auto; white-space: nowrap; margin-bottom: 0; font-size: 1.2rem; }
-  /* Keep the CTA on the bar at the narrowest widths by shortening the label. */
-  .nav-cta { padding: .55rem .9rem; font-size: .88rem; }
-  .nav-cta .cta-long { display: none; }
-  .nav-cta .cta-short { display: inline; }
   .hero-cta .btn { width: 100%; justify-content: center; }
 }
 
