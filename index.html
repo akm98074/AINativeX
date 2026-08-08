@@ -640,9 +640,11 @@
         <details class="faq-item">
           <summary>How do we start?</summary>
           <p>
-            <a href="#contact">Request a working session</a>
-            with you and a couple of your leads. If there's a fit, we scope a small
-            first phase so you see how the work goes before committing to more.
+            Email <a href="mailto:akmishra@ainativex.ai?subject=AINativeX%20working%20session">akmishra@ainativex.ai</a>
+            and ask for a working session — ninety minutes with you and a couple
+            of your leads, on a workflow you already care about. If there's a fit,
+            we scope a small first phase so you see how the work goes before
+            committing to more.
           </p>
         </details>
       </div>
@@ -659,13 +661,39 @@
           Low risk, concrete, and you see how the work goes before committing to
           the full engagement.
         </p>
-        <div class="hero-cta">
-          <a class="btn btn--amber btn--lg" href="mailto:akmishra@ainativex.ai?subject=AINativeX%20—%20working%20session">Request a working session <span class="arw">→</span></a>
+        <!-- Contact card. The button is a mailto, and plenty of corporate
+             machines have no mail handler, so the address sits right beside it
+             with a copy control: nothing here can silently do nothing. -->
+        <div class="contact-card">
+          <a class="btn btn--amber btn--lg" id="ctaMail"
+             href="mailto:akmishra@ainativex.ai?subject=AINativeX%20working%20session&amp;body=Hi%20Abhishek%2C%0D%0A%0D%0AWe%27d%20like%20to%20set%20up%20a%20working%20session.%0D%0A%0D%0ACompany%3A%0D%0AWorkflow%20we%27d%20start%20with%3A%0D%0AWho%20would%20be%20in%20the%20room%3A%0D%0A">Request a working session <span class="arw">→</span></a>
+
+          <div class="contact-direct">
+            <a class="contact-email" href="mailto:akmishra@ainativex.ai?subject=AINativeX%20working%20session">akmishra@ainativex.ai</a>
+            <button class="copy-btn" type="button" id="copyEmail"
+                    data-copy="akmishra@ainativex.ai" aria-label="Copy email address">
+              <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" focusable="false">
+                <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      d="M9 9h10v10H9zM5 15H4V4h11v1"/>
+              </svg>
+              <span class="copy-label">Copy</span>
+            </button>
+          </div>
+
+          <!-- Revealed by main.js only when the mailto click leaves the page
+               untouched, i.e. no mail handler picked it up. -->
+          <p class="contact-hint" id="mailHint" hidden>
+            No mail app on this machine? Copy the address above and write from
+            wherever you read mail.
+          </p>
+
+          <p class="contact-note">
+            Tell me the workflow you'd start with and who would be in the room.
+            Or reach me on <a href="https://www.linkedin.com/in/abhishekkmishra/" target="_blank" rel="noopener">LinkedIn</a>.
+          </p>
+
+          <span class="sr-only" role="status" aria-live="polite" id="copyStatus"></span>
         </div>
-        <!-- Plenty of corporate machines have no mail handler, and the button
-             above silently does nothing there. The address stays readable and
-             selectable so those visitors can still copy it. -->
-        <p class="cta-fallback">Or email <a href="mailto:akmishra@ainativex.ai?subject=AINativeX%20—%20working%20session">akmishra@ainativex.ai</a></p>
       </div>
     </section>
 
