@@ -368,46 +368,18 @@ p  { margin: 0 0 1rem; }
 .cta-band p a { color: var(--amber); }   /* coral fails contrast on the dark band */
 .cta-band .hero-cta { justify-content: center; margin-top: 1.6rem; }
 
-/* Contact card — one centred column so the button, the address and the note
-   read as a single ask. Every margin here keeps `auto` on the inline axis;
-   setting `margin: x 0 0` would silently un-centre the child inside the band. */
-.contact-card {
-  display: flex; flex-direction: column; align-items: center; gap: 1rem;
-  margin: 1.8rem auto 0; max-width: 48ch;
+/* The ask itself, in place of a button. Scoped under .cta-band so it beats
+   `.cta-band p`, which would otherwise win on specificity and hand it back
+   that rule's colour and measure. */
+.cta-band .cta-ask {
+  margin: 1.7rem auto 0; max-width: 46ch;
+  font-size: 1.12rem; line-height: 1.65; color: #e4e4f0;
 }
-.contact-direct {
-  display: inline-flex; align-items: center; gap: .35rem;
-  padding: .3rem .3rem .3rem 1rem;
-  border: 1px solid rgba(255,255,255,.22); border-radius: 999px;
-  background: rgba(255,255,255,.05);
+.cta-band .cta-ask a {
+  color: var(--amber); font-weight: 600;
+  text-decoration: underline; text-underline-offset: 3px;
 }
-.contact-email {
-  color: #f2f2fa; font-weight: 600; font-size: 1rem;
-  letter-spacing: .01em; text-decoration: none;
-}
-.contact-email:hover { color: var(--amber); text-decoration: underline; }
-.copy-btn {
-  display: inline-flex; align-items: center; gap: .35rem;
-  padding: .45rem .8rem; border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.22); background: transparent;
-  color: #cfcfe6; font: inherit; font-size: .85rem; font-weight: 600;
-  cursor: pointer; transition: background .15s ease, color .15s ease, border-color .15s ease;
-}
-.copy-btn:hover { background: rgba(255,255,255,.1); color: #fff; border-color: rgba(255,255,255,.4); }
-.copy-btn:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
-.copy-btn.is-copied { color: var(--amber); border-color: var(--amber); }
-/* Scoped to the band so they beat `.cta-band p`, which would otherwise win on
-   specificity and hand these back its colour and 52ch measure. */
-.cta-band .contact-hint {
-  margin: 0 auto; max-width: 40ch;
-  font-size: .9rem; color: var(--amber);
-}
-.cta-band .contact-note {
-  margin: 0 auto; max-width: 44ch;
-  font-size: .92rem; color: #a3a3bd;
-}
-.cta-band .contact-note a { color: #d8d8ea; text-decoration: underline; }
-.cta-band .contact-note a:hover { color: #fff; }
+.cta-band .cta-ask a:hover { color: #fff; }
 
 /* ---------- Footer ---------- */
 .site-footer { background: var(--dark-navy); color: #c9c9da; padding: 56px 0 30px; }
@@ -461,12 +433,9 @@ p  { margin: 0 0 1rem; }
   /* Labels like "70-20-10" must not break across lines in the side column. */
   .stat-num { flex: 0 0 auto; white-space: nowrap; margin-bottom: 0; font-size: 1.2rem; }
   .hero-cta .btn { width: 100%; justify-content: center; }
-  /* The address pill runs out of room next to the copy button, so let it
-     stack rather than overflow the band. */
-  .contact-card { max-width: none; }
-  .contact-card .btn { width: 100%; justify-content: center; }
-  .contact-direct { flex-direction: column; gap: .5rem; padding: .8rem 1rem; border-radius: var(--radius); }
-  .contact-email { font-size: .95rem; word-break: break-all; }
+  /* The address is one long unbreakable token at this width. */
+  .cta-band .cta-ask { font-size: 1.05rem; }
+  .cta-band .cta-ask a { overflow-wrap: anywhere; }
 }
 
 @media (prefers-reduced-motion: reduce) {
