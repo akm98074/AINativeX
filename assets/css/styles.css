@@ -232,8 +232,11 @@ section > .container > *:last-child { margin-bottom: 0; }
   background: #fff; border: 1px solid var(--line); border-top: 5px solid var(--amber);
   border-radius: var(--radius-lg); padding: 1.6rem 1.4rem; box-shadow: var(--shadow-sm);
 }
-/* The 70% is the argument of the whole page, so it carries the coral. */
+/* The weights are unequal, so the accent carries the hierarchy before the
+   reader parses a number: coral on the 70%, amber on the 20%, and the palette's
+   desaturated grey-navy on the 10%. All three are existing brand tokens. */
 .split-item--lead { border-top-color: var(--coral); }
+.split-item--minor { border-top-color: var(--muted); }
 .split-num {
   display: block; font-family: var(--font-display); font-weight: 700;
   font-size: clamp(2.6rem, 5vw, 3.4rem); line-height: 1; color: var(--navy);
