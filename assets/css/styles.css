@@ -53,17 +53,29 @@ body {
 img { max-width: 100%; height: auto; display: block; }
 a { color: var(--coral); text-decoration: none; }
 a:hover { text-decoration: underline; }
-h1, h2, h3 { color: var(--navy); line-height: 1.15; letter-spacing: -.02em; margin: 0 0 .5em; }
+/* text-wrap: balance evens out the last line of a heading instead of leaving a
+   one-word orphan under a nearly-full line. Body copy gets `pretty`, which only
+   polices the final line and so stays cheap on long paragraphs. */
+h1, h2, h3 { color: var(--navy); line-height: 1.15; letter-spacing: -.02em; margin: 0 0 .5em; text-wrap: balance; }
 h1, h2 { font-family: var(--font-display); font-weight: 600; letter-spacing: -.01em; }
 h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); }
 h2 { font-size: clamp(1.9rem, 3.8vw, 2.9rem); }
 h3 { font-size: 1.25rem; font-weight: 700; }
-p  { margin: 0 0 1rem; }
+p  { margin: 0 0 1rem; text-wrap: pretty; }
 
 /* ---------- Layout helpers ---------- */
 .container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: 22px; }
 [id] { scroll-margin-top: 84px; }
-.section { padding: clamp(56px, 8vw, 104px) 0; }
+/* Vertical rhythm comes from one place. The section owns the space between
+   bands; the last block inside it drops its trailing margin so the two don't
+   compound into a void. The `.container` line is the one that actually bites —
+   a section's only direct child is the container, so the trailing paragraph is
+   a grandchild, not a child. */
+section { padding-block: clamp(72px, 9vw, 128px); }
+section > *:last-child { margin-bottom: 0; }
+section > .container > *:last-child { margin-bottom: 0; }
+/* The hero's own grid supplies its padding, so it opts out instead of doubling. */
+.hero { padding-block: 0; }
 .eyebrow {
   display: inline-block; font-size: .78rem; font-weight: 700; letter-spacing: .14em;
   text-transform: uppercase; color: var(--deep-amber); margin-bottom: .9rem;
@@ -73,9 +85,12 @@ p  { margin: 0 0 1rem; }
 .lead { font-size: 1.15rem; color: var(--muted); }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
 .section--tint { background: var(--cream-soft); border-block: 1px solid var(--line); }
-.section-head { max-width: 62ch; margin-bottom: 2.2rem; }
-.section-head h2 { margin-bottom: .6rem; }
-.section-head .lead { margin-bottom: 0; }
+/* Measure is set per element, in ch, so heading and body are each tuned to
+   their own font. A single max-width on the wrapper would measure both in
+   Inter and let the much larger display serif run past the body's edge. */
+.section-head { margin-bottom: 2.2rem; }
+.section-head h2 { max-width: 20ch; margin-bottom: .6rem; }
+.section-head .lead { max-width: 60ch; margin-bottom: 0; }
 .note { max-width: 66ch; color: var(--muted); font-size: .98rem; }
 
 /* Single-line conclusion under a block, in the deck's voice. */
@@ -260,7 +275,7 @@ p  { margin: 0 0 1rem; }
   padding: .35rem .8rem; margin-top: .15rem;
 }
 .layer h3 { font-size: 1.08rem; margin-bottom: .35rem; }
-.layer p { margin: 0; color: #34344a; font-size: .96rem; max-width: 70ch; }
+.layer p { margin: 0; color: #34344a; font-size: .96rem; max-width: 66ch; }
 
 /* ---------- Engagements ---------- */
 /* One card per row, ascending by duration, so the depths read top to bottom.
@@ -296,7 +311,7 @@ p  { margin: 0 0 1rem; }
   margin: 1rem 0 0; font-style: italic; color: var(--muted); font-size: .92rem;
 }
 .how-it-runs + .how-it-runs { margin-top: .6rem; }
-.plans-note { font-weight: 600; color: var(--navy); max-width: 70ch; }
+.plans-note { font-weight: 600; color: var(--navy); max-width: 66ch; }
 
 /* ---------- Why: credentials + pull quote ---------- */
 .why-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(1.6rem, 3vw, 2.6rem); align-items: start; }
