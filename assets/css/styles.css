@@ -70,8 +70,12 @@ p  { margin: 0 0 1rem; text-wrap: pretty; }
    bands; the last block inside it drops its trailing margin so the two don't
    compound into a void. The `.container` line is the one that actually bites —
    a section's only direct child is the container, so the trailing paragraph is
-   a grandchild, not a child. */
-section { padding-block: clamp(72px, 9vw, 128px); }
+   a grandchild, not a child.
+
+   This value is a HALF-gap. Padding does not collapse, so every boundary pays
+   it twice: the gap between two sections is double what is set here. 64px
+   therefore reads as 128px between bands at desktop, 72px at phone width. */
+section { padding-block: clamp(36px, 5vw, 64px); }
 section > *:last-child { margin-bottom: 0; }
 section > .container > *:last-child { margin-bottom: 0; }
 /* The hero's own grid supplies its padding, so it opts out instead of doubling. */
@@ -87,9 +91,15 @@ section > .container > *:last-child { margin-bottom: 0; }
 .section--tint { background: var(--cream-soft); border-block: 1px solid var(--line); }
 /* Measure is set per element, in ch, so heading and body are each tuned to
    their own font. A single max-width on the wrapper would measure both in
-   Inter and let the much larger display serif run past the body's edge. */
+   Inter and let the much larger display serif run past the body's edge.
+
+   34ch, not 20: `ch` is the width of "0", which in Playfair is wider than its
+   average lowercase glyph, so the cap buys roughly 40 real characters. That is
+   enough for every heading on this page to sit on one line from 1024px up,
+   while still reining in anything longer. Below ~700px the container binds
+   first, so the cap is inert on phones and `text-wrap: balance` takes over. */
 .section-head { margin-bottom: 2.2rem; }
-.section-head h2 { max-width: 20ch; margin-bottom: .6rem; }
+.section-head h2 { max-width: 34ch; margin-bottom: .6rem; }
 .section-head .lead { max-width: 60ch; margin-bottom: 0; }
 .note { max-width: 66ch; color: var(--muted); font-size: .98rem; }
 
@@ -245,6 +255,14 @@ section > .container > *:last-child { margin-bottom: 0; }
 .split-item--lead .split-num { color: var(--coral); }
 .split-item h3 { margin-bottom: .35rem; font-size: 1.1rem; }
 .split-item p { margin: 0; color: #34344a; font-size: .95rem; }
+
+/* Commentary under the cards, set in two columns so it occupies the same row
+   width as the card grid above it. Multicol rather than a two-column grid: it
+   balances the column heights on its own, and `break-inside` keeps each
+   paragraph whole so reading order survives. Same idiom as `.ecard .ticks`. */
+.notes { columns: 2; column-gap: clamp(2rem, 4vw, 4rem); }
+.notes .note { break-inside: avoid; max-width: none; }
+.notes .note:last-child { margin-bottom: 0; }
 
 /* ---------- Where it breaks: the two gaps ---------- */
 .gaps { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
@@ -426,6 +444,9 @@ section > .container > *:last-child { margin-bottom: 0; }
   .hero h1, .hero-sub { max-width: none; }
   .split, .gaps, .engage { grid-template-columns: 1fr; }
   .ecard .ticks { columns: 1; }
+  /* Collapses at the same breakpoint as the card grids above it. */
+  .notes { columns: 1; }
+  .notes .note { max-width: 66ch; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .nav-links {
     position: fixed; inset: 62px 0 auto 0; flex-direction: column; align-items: stretch;
