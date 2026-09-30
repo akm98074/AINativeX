@@ -445,6 +445,85 @@ section > .container > *:last-child { margin-bottom: 0; }
 }
 .tagline-pill { color: var(--amber); font-weight: 600; }
 
+/* ---------- Resources (listing + article pages) ----------
+   Long-form pages live under /resources/. They reuse the site's tokens; the
+   only new idea is a reading measure (~68ch) for the article body. */
+.resources-title { font-size: clamp(2rem, 4.4vw, 3.1rem); max-width: 22ch; margin-bottom: .6rem; }
+.resource-grid {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 1.4rem;
+}
+.resource-card {
+  position: relative; height: 100%; display: flex; flex-direction: column;
+  background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg);
+  padding: 1.6rem 1.6rem 1.4rem; box-shadow: var(--shadow-sm);
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.resource-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: #d9d2c6; }
+.resource-card h2 { font-size: 1.45rem; line-height: 1.25; margin: 0 0 .6rem; }
+.resource-card h2 a { color: var(--navy); }
+.resource-card h2 a:hover { text-decoration: none; }
+/* The title link covers the whole card, so the card is one tap target. */
+.resource-card h2 a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.resource-card p { color: var(--muted); }
+.resource-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; font-size: .85rem; margin-bottom: .9rem; color: var(--num); }
+.resource-tag {
+  font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--coral); background: #fbe9e1; border-radius: 999px; padding: .25rem .6rem;
+}
+.resource-card .resource-foot {
+  margin: auto 0 0; display: flex; justify-content: space-between; align-items: baseline;
+  font-size: .85rem; color: var(--num);
+}
+.resource-more { font-size: 1rem; font-weight: 700; color: var(--coral); }
+.resource-card:hover .resource-more .arw { display: inline-block; transform: translateX(3px); }
+
+.article-head, .prose, .article-foot { max-width: 68ch; margin-inline: auto; }
+.article-head { margin-bottom: 2.2rem; }
+.article-back { display: inline-block; font-weight: 600; font-size: .92rem; margin-bottom: 1.4rem; }
+.article-head .eyebrow { display: block; }
+.article-head h1 { font-size: clamp(2.1rem, 5vw, 3.3rem); line-height: 1.12; margin-bottom: .8rem; text-wrap: balance; }
+.article-dek { font-family: var(--font-display); font-style: italic; font-size: clamp(1.1rem, 2vw, 1.3rem); color: var(--muted); }
+.article-meta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .6rem;
+  padding-top: 1.1rem; border-top: 1px solid var(--line); font-size: .92rem; color: var(--muted);
+}
+.article-pdf { margin-left: auto; }
+
+.prose { font-size: 1.08rem; line-height: 1.75; }
+.prose p { margin-bottom: 1.25rem; }
+.prose-lede { font-size: 1.2rem; color: var(--navy); }
+.prose h2 { font-size: clamp(1.5rem, 3vw, 1.95rem); margin: 2.6rem 0 1rem; }
+.prose-figure { margin: 2.2rem 0; }
+.prose-figure img {
+  width: 100%; height: auto; border: 1px solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow-sm); background: #fff;
+}
+.prose-figure figcaption { margin-top: .7rem; font-size: .9rem; color: var(--muted); text-align: center; }
+.prose-points { padding-left: 1.2rem; margin: 0 0 1.4rem; }
+.prose-points li { margin-bottom: .9rem; padding-left: .3rem; }
+.prose-points li::marker { color: var(--coral); }
+.callout {
+  margin: 2.2rem 0; padding: 1.5rem 1.6rem .4rem;
+  background: var(--cream-soft); border: 1px solid var(--line); border-left: 4px solid var(--coral);
+  border-radius: var(--radius);
+}
+.callout .callout-label {
+  font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--coral); line-height: 1.5; margin-bottom: .8rem;
+}
+.pullquote {
+  margin: 2.6rem 0; padding: 1.4rem 0 1.4rem 1.4rem; border-left: 4px solid var(--amber);
+}
+.pullquote p {
+  margin: 0; font-family: var(--font-display); font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+  line-height: 1.45; color: var(--navy);
+}
+.article-signoff { font-size: .9rem; color: var(--num); }
+.article-foot { margin-top: 2.6rem; padding-top: 1.8rem; border-top: 1px solid var(--line); }
+.article-foot a:not(.btn) { overflow-wrap: anywhere; }
+.article-foot-actions { display: flex; flex-wrap: wrap; gap: .8rem; }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 1040px) {
   .nav-links { gap: 1.1rem; }
@@ -483,6 +562,9 @@ section > .container > *:last-child { margin-bottom: 0; }
   /* Labels like "70-20-10" must not break across lines in the side column. */
   .stat-num { flex: 0 0 auto; white-space: nowrap; margin-bottom: 0; font-size: 1.2rem; }
   .hero-cta .btn { width: 100%; justify-content: center; }
+  .article-pdf { margin-left: 0; }
+  .prose { font-size: 1.02rem; }
+  .callout { padding-inline: 1.1rem; }
   /* The address is one long unbreakable token at this width. */
   .cta-band .cta-ask { font-size: 1.05rem; }
   .cta-band .cta-ask a { overflow-wrap: anywhere; }

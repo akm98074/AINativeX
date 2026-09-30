@@ -29,6 +29,10 @@ instantly and can be hosted anywhere. See **[DEPLOY.md](DEPLOY.md)**.
 | 8 | **FAQ** | Fit, scope, build-vs-advise, timing, enterprise track record, regulated environments, how to start |
 | 9 | **Final CTA** | Start scoped: a working session, then a two-to-three-week first phase |
 
+Beyond the one-pager, **[Resources](resources/)** (`/resources/`) holds long-form
+articles: a listing page plus one page per article, linked from the header nav
+and the footer.
+
 Copy is drawn from the *AI Transformation* deck (premise, the two gaps, and the
 operator credentials), with the individual-facing slogans of AIUdaan replaced by
 enterprise ones — see [BRAND.md](BRAND.md#taglines).
@@ -41,6 +45,10 @@ enterprise ones — see [BRAND.md](BRAND.md#taglines).
 AINativeX/
 ├── index.html                  # The one-page site (all copy lives here)
 ├── 404.html                    # Friendly not-found page
+├── resources/
+│   ├── index.html              # Resources listing (article cards, newest first)
+│   ├── <article-slug>/index.html  # One folder per article → clean URL
+│   └── files/                  # Downloadable PDF of each article
 ├── .htaccess                   # Apache config for cPanel hosting
 │                               #   (HTTPS + www redirect, caching, headers)
 ├── robots.txt                  # Search-engine crawl directives
@@ -63,7 +71,8 @@ AINativeX/
         ├── favicon-32.png      # 32×32 PNG favicon
         ├── favicon-64.png      # 64×64 PNG favicon
         ├── og-image.png        # 1200×630 social-share image
-        └── abhishek-mishra.*   # Portrait used in the hero credibility card
+        ├── abhishek-mishra.*   # Portrait used in the hero credibility card
+        └── resources/          # Figures used inside articles
 ```
 
 Asset references are relative, which is what lets the site work from the
@@ -100,4 +109,26 @@ the scroll-spy nav highlight, and the footer year.
 
 The bar for "done": an enterprise buyer lands, understands the 70-20-10 thesis
 in ten seconds, sees which of the three engagements is theirs, and gets in touch.
-Resist adding a blog or a services matrix — they dilute that.
+Keep long-form writing in Resources rather than on the one-pager, and resist a
+services matrix — both would dilute that.
+
+---
+
+## Publishing a new article
+
+Articles are plain HTML, like the rest of the site: no build step. Given a
+source PDF:
+
+1. **Copy the article folder.** Duplicate
+   `resources/future-of-ai-deployment-is-hybrid/` as `resources/<new-slug>/`
+   and replace the body, title, description, canonical/OG URLs, date, read time
+   and JSON-LD. Paths inside it are `../../` relative, so they keep working.
+2. **Figures.** Put images in `assets/img/resources/` (extract from the PDF with
+   `pdfimages -j`), with `width`/`height` and alt text that carries the figure's
+   content.
+3. **PDF.** Put the PDF in `resources/files/<new-slug>.pdf` and point both
+   "Download PDF" links at it.
+4. **List it.** Copy the card at the top of `resources/index.html`'s
+   `.resource-grid` and edit it. Newest goes first.
+5. **Sitemap.** Add the article URL to `sitemap.xml` and bump the
+   `/resources/` `lastmod`.
